@@ -50,7 +50,9 @@ class BusinessCard extends React.Component {
     };
   }
 
-  handleRequestClick = () => {};
+  handleRequestClick = () => {
+    this.props.history.push(`/requestquote/${this.props.business.name}`);
+  };
 
   handleMessageClick = () => {
     this.props.handleMessageClick();
@@ -61,7 +63,8 @@ class BusinessCard extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, business, handleCardClick } = this.props;
+    const { name, location, desc, rating } = business;
     return (
       <Grid container spacing={5} justify="center">
         <Grid item>
@@ -84,20 +87,20 @@ class BusinessCard extends React.Component {
           </div>
         </Grid>
         <Grid className={classes.businessDetails} item xs={5}>
-          <h3>{this.props.name}</h3>
+          <h3>{name}</h3>
           <div style={{ display: "flex" }}>
-            <Rating value={this.props.rating} disabled readOnly size="small" />
+            <Rating value={rating} disabled readOnly size="small" />
             <p style={{ fontSize: "12px", marginTop: 0, marginLeft: 10 }}>
-              {this.props.location}
+              {location}
             </p>
           </div>
-          <p>{this.props.desc}</p>
+          <p>{desc}</p>
           <Button
             className={classes.readMoreBtn}
             style={{
               backgroundColor: "transparent",
             }}
-            onClick={this.props.handleCardClick}
+            onClick={handleCardClick}
             disableRipple
             endIcon={<KeyboardArrowRightIcon />}
           >

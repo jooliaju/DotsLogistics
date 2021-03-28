@@ -26,7 +26,13 @@ class App extends Component {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/dash" component={Dashboard} />
           <Route exact path="/404" component={NotFoundPage} />
-          <Route exact path="/marketplace" component={Marketplace} />
+          <Route
+            exact
+            path="/marketplace"
+            render={(props) => {
+              return <Marketplace {...props} />;
+            }}
+          />
           <Route
             exact
             path="/requestquote/:bus"

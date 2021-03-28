@@ -49,10 +49,10 @@ const styles = () => ({
 });
 
 const RequestQuote = (props) => {
-  const { classes } = props;
+  const { classes, match } = props;
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [businessName, setBusinessName] = useState(""); //get business name through props
+  const [businessName, setBusinessName] = useState(match.params.bus);
 
   const handleChange = (field) => (e) => {
     switch (field) {
@@ -93,6 +93,7 @@ const RequestQuote = (props) => {
                 variant="filled"
                 label="Business Name"
                 onChange={() => handleChange(3)}
+                value={businessName}
               />
               <TextField
                 className={classes.field}

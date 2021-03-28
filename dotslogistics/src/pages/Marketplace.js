@@ -44,7 +44,8 @@ const styles = () => ({
 });
 
 const Marketplace = (props) => {
-  const { classes } = props;
+  const { classes, history } = props;
+
   const [anchorEl, setAnchorEl] = useState(null);
   const [sort, setSort] = useState(null);
   const [msgPanel, setMsgPanel] = useState(false);
@@ -90,6 +91,7 @@ const Marketplace = (props) => {
 
   const handleSetView = (view) => {
     setView(view);
+    history.push("/marketplace");
   };
 
   let sortBusinesses;
@@ -103,21 +105,12 @@ const Marketplace = (props) => {
     sortBusinesses = [...businesses];
   }
   const businessCards = sortBusinesses.map((business) => {
-    let avgRating = 0;
-    for (let i = 0; i < business.reviews.length; i++) {
-      avgRating += business.reviews[i].rating;
-    }
-    avgRating = avgRating / business.reviews.length;
-
     return (
       <BusinessCard
-        name={business.name}
-        rating={avgRating}
-        location={business.location}
-        desc={business.desc}
-        img={business.img}
+        business={business}
         handleMessageClick={() => openMsgPanel(business)}
         handleCardClick={() => handleCardClick(business)}
+        {...props}
       />
     );
   });
@@ -274,6 +267,7 @@ const Marketplace = (props) => {
           <Business
             partner={partner}
             handleGoBack={() => handleSetView("card")}
+            {...props}
           />
         )}
       </Grid>
