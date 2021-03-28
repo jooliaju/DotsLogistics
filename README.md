@@ -16,7 +16,7 @@
 <p>&nbsp;</p>
 <p><strong>Where is AI used?</strong></p>
 <ul>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Recommendation system to streamline finding business partners based on criteria and previous transactions.&nbsp;</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Recommendation system to streamline finding business partners based on criteria, previous transactions, and route optimization.&nbsp;</span></li>
 <li style="font-weight: 400;"><span style="font-weight: 400;">Market analysis and insights from aggregated data and transactions on DotsLogistics.&nbsp;</span></li>
 <li style="font-weight: 400;"><span style="font-weight: 400;">Analytics dashboards for potential partners and customers' own business. </span></li>
 </ul>
