@@ -1,0 +1,13 @@
+.image3 {
+  object-fit: contain;
+}
+
+.row {
+  padding: 50px;
+  display: flex;
+}
+.block {
+  flex: 33.33%;
+  padding: 5px;
+  text-align: center;
+}
