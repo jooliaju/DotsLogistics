@@ -25,7 +25,7 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import Message from "./Message.js";
 import BusinessIcon from "@material-ui/icons/Business";
-
+import { HashLink as Link } from "react-router-hash-link";
 import GoogleMapReact from "google-map-react";
 
 const styles = () => ({
@@ -44,15 +44,7 @@ const styles = () => ({
     alignItems: "center",
     margin: 15,
   },
-  review: {
-    paddingLeft: 15,
-  },
-  reviewBus: {
-    display: "flex",
-    width: "100%",
-  },
   rating: {
-    paddingLeft: 15,
     marginTop: 20,
   },
   avatar: {
@@ -61,7 +53,11 @@ const styles = () => ({
   },
   card: {
     textAlign: "left",
-    margin: 30,
+    margin: 50,
+  },
+  cardWrap: {
+    marginTop: 110,
+    height: 500,
   },
   btnWrap: {
     display: "flex",
@@ -70,13 +66,20 @@ const styles = () => ({
   },
   btn: {
     borderRadius: 20,
-    width: "40%",
     height: 50,
     textTransform: "none",
+  },
+  backBtn: {
+    width: "100%",
+    textAlign: "left",
   },
 });
 
 class Business extends Component {
+  handleRequestClick = () => {
+    this.props.history.push(`/requestquote/${this.props.partner.name}`);
+  };
+
   render() {
     const { classes, partner } = this.props;
     const {
@@ -94,31 +97,33 @@ class Business extends Component {
       return (
         <div className={classes.reviewCard}>
           <Avatar className={classes.avatar} alt={review.name} />
-          <div className={classes.review}>
-            <div className={classes.reviewBus}>
+          <Grid container>
+            <Grid style={{ marginLeft: 20 }} item xs={5}>
               <h3 style={{ fontWeight: 400 }}>{review.name}</h3>
+              <p>{review.review}</p>
+            </Grid>
+            <Grid item xs={1}>
               <Rating
                 className={classes.rating}
                 value={review.rating}
                 disabled
                 readOnly
               />
-            </div>
-            <p>{review.review}</p>
-          </div>
+            </Grid>
+          </Grid>
         </div>
       );
     });
 
     return (
       <>
-        <div>
+        <div className={classes.backBtn}>
           <IconButton onClick={this.props.handleGoBack}>
             <ArrowBackIcon />
           </IconButton>
         </div>
-        <Container maxWidth="lg">
-          <Grid container spacing={4}>
+        <Container maxWidth="xl">
+          <Grid container spacing={4} justify="center">
             <Grid className={classes.details} item xs={7}>
               <h2>{name}</h2>
               <div style={{ display: "flex" }}>
@@ -167,24 +172,27 @@ class Business extends Component {
               </div>
               <div id="process">
                 <h2 className={classes.subHeader}>Our Process</h2>
-                <img
-                  src={OurProcess}
-                  alt="Our Process"
-                  width="100%"
-                  height="240"
-                />
+                <div style={{ width: "100%", textAlign: "center" }}>
+                  <img
+                    src={OurProcess}
+                    alt="Our Process"
+                    width="70%"
+                    height="240"
+                  />
+                </div>
               </div>
               <div id="reviews">
                 <h2 className={classes.subHeader}>Reviews</h2>
                 {reviewCards}
               </div>
             </Grid>
-            <Grid item xs={5}>
-              <Card style={{ marginTop: 30 }}>
+            <Grid item xs={4}>
+              <Card className={classes.cardWrap}>
                 <div className={classes.card}>
                   <p>
                     <BusinessIcon style={{ marginRight: 10 }} />
-                    {`${numPartners} other companies have hired this business`}
+                    <strong>{numPartners}</strong> other companies have hired
+                    this business
                   </p>
                   <p>
                     <LocalAtmIcon style={{ marginRight: 10 }} />
@@ -200,11 +208,22 @@ class Business extends Component {
                     occaecat cupidatat non proident, sunt in culpa qui officia
                     deserunt mollit anim id est laborum.
                   </p>
+                  <br />
+                  <br />
                   <div className={classes.btnWrap}>
-                    <Button className={classes.btn} variant="outlined">
-                      How We Work
-                    </Button>
-                    <Button className={classes.btn} variant="contained">
+                    <Link
+                      to="/marketplace#process"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Button className={classes.btn} variant="outlined">
+                        How We Work
+                      </Button>
+                    </Link>
+                    <Button
+                      className={classes.btn}
+                      variant="contained"
+                      onClick={this.handleRequestClick}
+                    >
                       Request a Quote
                     </Button>
                   </div>
