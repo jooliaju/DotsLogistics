@@ -4,10 +4,6 @@
 <p>DotsLogistics is an open-source platform with AI capabilities that connects warehouses, logistics companies, and small businesses to find partners and complete transactions. It is tailored towards supporting B2B and B2C relationships, helping improve efficiency within the supply and logistics sector.</p>
 <ul>
 <li style="font-weight: 400;"><span style="font-weight: 400;">Using React as the front-end and client-side framework, handling UI and getting data through requests to the Flask backend.&nbsp;</span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Integration with Microsoft Power BI</span></li>
-<ul>
-<li style="font-weight: 400;"><span style="font-weight: 400;">enable the system to receive requests for services or proposals, suggest prospect, help the players determine the best competitive transaction based on route and volume and aggregate demand and supply</span></li>
-</ul>
 </ul>
 <p>&nbsp;</p>
 <p><strong>Key Features</strong></p>
