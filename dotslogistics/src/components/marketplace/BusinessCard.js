@@ -4,6 +4,7 @@ import Rating from "@material-ui/lab/Rating";
 import BusinessImage from "../../assets/turtwig.png";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 
 const styles = () => ({
   imgContainer: {
@@ -32,6 +33,13 @@ const styles = () => ({
     bottom: 0,
     right: 0,
   },
+  readMoreBtn: {
+    margin: 10,
+    textTransform: "none",
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  },
 });
 
 class BusinessCard extends React.Component {
@@ -45,7 +53,7 @@ class BusinessCard extends React.Component {
   handleRequestClick = () => {};
 
   handleMessageClick = () => {
-    this.props.handleMessageClick(this.props.name);
+    this.props.handleMessageClick();
   };
 
   handleFavouriteClick = () => {
@@ -84,6 +92,17 @@ class BusinessCard extends React.Component {
             </p>
           </div>
           <p>{this.props.desc}</p>
+          <Button
+            className={classes.readMoreBtn}
+            style={{
+              backgroundColor: "transparent",
+            }}
+            onClick={this.props.handleCardClick}
+            disableRipple
+            endIcon={<KeyboardArrowRightIcon />}
+          >
+            Read More
+          </Button>
         </Grid>
         <Grid className={classes.buttonWrapper} item xs={3}>
           <Button

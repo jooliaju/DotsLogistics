@@ -15,8 +15,6 @@ const styles = () => ({
     padding: 60,
     opacity: 0.4,
     alignItems: "center",
-    position: "sticky",
-    top: 0,
   },
   textField: {
     border: "2px solid",

@@ -155,8 +155,18 @@ const RequestQuote = (props) => {
                 label="Business Location"
                 onChange={() => handleChange(4)}
               />
-              <TextField className={classes.field} fullWidth variant="filled" />
-              <TextField className={classes.field} fullWidth variant="filled" />
+              <TextField
+                className={classes.field}
+                fullWidth
+                variant="filled"
+                label="Title"
+              />
+              <TextField
+                className={classes.field}
+                fullWidth
+                variant="filled"
+                label="Zip Code"
+              />
               <TextField
                 className={classes.field}
                 fullWidth

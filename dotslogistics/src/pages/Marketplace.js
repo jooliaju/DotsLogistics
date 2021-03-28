@@ -11,12 +11,16 @@ import {
   ClickAwayListener,
 } from "@material-ui/core";
 import Search from "../components/marketplace/Search";
+import Business from "../components/marketplace/Business";
 import BusinessCard from "../components/marketplace/BusinessCard";
 import ViewHeadlineIcon from "@material-ui/icons/ViewHeadline";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
+import Map from "../assets/map.jpg";
 import Message from "../components/marketplace/Message.js";
+import GoogleMapReact from "google-map-react";
+import businesses from "../data/businesses.js";
 
 const styles = () => ({
   optionsBtn: {
@@ -33,6 +37,10 @@ const styles = () => ({
     marginTop: 10,
     marginBottom: 10,
   },
+  mapCenter: {
+    paddingLeft: 65,
+    paddingRight: 65,
+  },
 });
 
 const Marketplace = (props) => {
@@ -40,7 +48,7 @@ const Marketplace = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [sort, setSort] = useState(null);
   const [msgPanel, setMsgPanel] = useState(false);
-  const [partner, setPartner] = useState("");
+  const [partner, setPartner] = useState(null);
   const [view, setView] = useState("card");
 
   const handleSortClick = (e) => {
@@ -72,47 +80,17 @@ const Marketplace = (props) => {
   };
   const closeMsgPanel = () => {
     setMsgPanel(false);
-    setPartner("");
+    setPartner(null);
+  };
+
+  const handleCardClick = (partner) => {
+    setView("business");
+    setPartner(partner);
   };
 
   const handleSetView = (view) => {
     setView(view);
   };
-
-  const businesses = [
-    {
-      name: "Dataraction",
-      rating: 1,
-      location: "Toronto, ON",
-      desc: "The Robin Hood of Education!?",
-      img: "",
-      price: 20,
-    },
-    {
-      name: "DotsLogistics",
-      rating: 5,
-      location: "Toronto, ON",
-      desc: "The Snow Bunnies",
-      img: "",
-      price: 30,
-    },
-    {
-      name: "Supply R Us",
-      rating: 3,
-      location: "Guelph, ON",
-      desc: "BLAH BLAH BLAH BLAH BLAH",
-      img: "",
-      price: 60,
-    },
-    {
-      name: "Entropy",
-      rating: 2,
-      location: "Kitchener, ON",
-      desc: "YOYOYOYOYOYOYOYOYOOYOYOYOYOYOYOYOYOYOYO",
-      img: "",
-      price: 10,
-    },
-  ];
 
   let sortBusinesses;
   if (sort === "Rating") {
@@ -125,14 +103,21 @@ const Marketplace = (props) => {
     sortBusinesses = [...businesses];
   }
   const businessCards = sortBusinesses.map((business) => {
+    let avgRating = 0;
+    for (let i = 0; i < business.reviews.length; i++) {
+      avgRating += business.reviews[i].rating;
+    }
+    avgRating = avgRating / business.reviews.length;
+
     return (
       <BusinessCard
         name={business.name}
-        rating={business.rating}
+        rating={avgRating}
         location={business.location}
         desc={business.desc}
         img={business.img}
-        handleMessageClick={openMsgPanel}
+        handleMessageClick={() => openMsgPanel(business)}
+        handleCardClick={() => handleCardClick(business)}
       />
     );
   });
@@ -209,6 +194,8 @@ const Marketplace = (props) => {
     </Grid>
   );
 
+  const AnyReactComponent = ({ text }) => <div>{text}</div>;
+
   return (
     <>
       <Search />
@@ -218,7 +205,7 @@ const Marketplace = (props) => {
             <Grid item xs={10}>
               {options}
             </Grid>
-            <Grid container spacing={2}>
+            <Grid className={classes.mapCenter} container spacing={5}>
               <Grid item xs={2}>
                 <TextField
                   fullWidth
@@ -256,24 +243,43 @@ const Marketplace = (props) => {
                   label="Destination"
                   select
                 >
-                  <MenuItem>A</MenuItem>
-                  <MenuItem>B</MenuItem>
+                  <MenuItem>North America</MenuItem>
+                  <MenuItem>Asia</MenuItem>
                   <MenuItem>International</MenuItem>
                 </TextField>
               </Grid>
-              <Grid item xs={10}></Grid>
+              <Grid item xs={10}>
+                {/*<img src={Map} alt="Map" />*/}
+                <div style={{ height: "100vh", width: "100%" }}>
+                  <GoogleMapReact
+                    defaultCenter={{ lat: 59.95, lng: 30.33 }}
+                    defaultZoom={11}
+                  >
+                    <AnyReactComponent
+                      lat={59.955413}
+                      lng={30.337844}
+                      text="My Marker"
+                    />
+                  </GoogleMapReact>
+                </div>
+              </Grid>
             </Grid>
           </>
-        ) : (
+        ) : view === "card" ? (
           <Grid item xs={10}>
             {options}
             {businessCards}
           </Grid>
+        ) : (
+          <Business
+            partner={partner}
+            handleGoBack={() => handleSetView("card")}
+          />
         )}
       </Grid>
       {msgPanel && (
         <ClickAwayListener onClickAway={closeMsgPanel}>
-          <Message partner={partner} />
+          <Message partner={partner.name} />
         </ClickAwayListener>
       )}
     </>
