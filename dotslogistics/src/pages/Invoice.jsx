@@ -1,6 +1,7 @@
 import React from 'react';
 
 import UserInfo from '../components/Dashboard/userInfo';
+import InvoiceSection from '../components/InvoiceSection';
 import Navbar from '../components/navbar/Navbar';
 import SideNav from '../components/navbar/SideNav';
 
@@ -13,6 +14,7 @@ export default function Invoice() {
             <Navbar/>
             <SideNav/>
             <UserInfo/>
+            <InvoiceSection/>
             
 
         </div>

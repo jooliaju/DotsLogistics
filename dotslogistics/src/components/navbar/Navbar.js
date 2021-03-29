@@ -123,7 +123,7 @@ function Navbar() {
               Resources
             </Link>
           </li>
-          <Button
+          {/* <Button
           
           ref={anchorRef}
           aria-controls={open ? 'menu-list-grow' : undefined}
@@ -170,7 +170,22 @@ function Navbar() {
               </Paper>
             </Grow>
           )}
-        </Popper>
+        </Popper> */}
+        <div style= {{height: '100%', paddingTop: '20px', paddingBottom: '20px'}}>
+
+
+        <Button
+          
+          variant="contained" style = {{background: "#2E666E", color: 'white', fontWeight: 'bold', height: '50px', width: '110px', borderRadius: '20px', justifyContent: 'center', verticalAlign: ''}}
+        >
+          <div className = "myaccount" >
+            Sign Up
+          </div>
+          
+        </Button>
+        </div>
+
+
           
         </ul>
        
