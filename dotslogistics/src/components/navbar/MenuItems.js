@@ -1,37 +1,27 @@
 export const MenuItems = [
   {
-    title: "Home",
-    url: "#",
-    cName: "nav-links",
+    title: 'My Profile',
+    path: '/',
+    cName: 'dropdown-link'
   },
   {
-    title: "Features",
-    url: "#",
-    cName: "nav-links",
+    title: 'Dashboard',
+    path: '/consulting',
+    cName: 'dropdown-link'
   },
   {
-    title: "Market Place",
-    url: "/marketplace",
-    cName: "nav-links",
+    title: 'Sign Out',
+    path: '/design',
+    cName: 'dropdown-link'
   },
   {
-    title: "News",
-    url: "#",
-    cName: "nav-links",
+    title: 'Terms and Condition',
+    path: '/development',
+    cName: 'dropdown-link'
   },
   {
-    title: "About us",
-    url: "#",
-    cName: "nav-links",
+    title: 'Support',
+    path: '/marketing',
+    cName: 'dropdown-link'
   },
-  {
-    title: "My account",
-    url: "#",
-    cName: "nav-links",
-  },
-  // {
-  //     title: "My account",
-  //     url: "#",
-  //     cName: "nav-links=mobile"
-  // }
 ];

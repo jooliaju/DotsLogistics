@@ -129,6 +129,7 @@ const useStyles = makeStyles((theme) => ({
             <Grid item xs={7}>
                  <img src={OrderSummary}  className={classes.container1} style= {{ width: '100%'}}/>
             </Grid>
+            <Grid item xs = {1}></Grid>
 
            <Grid item xs = {4}>
 
