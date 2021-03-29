@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import Dropdown from "./Dropdown";
@@ -22,6 +23,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Navbar() {
+
+  const history = useHistory();
+  
+
+
   const [click, setClick] = useState(false);
   const [dropdown, setDropdown] = useState(false);
 
@@ -118,7 +124,10 @@ function Navbar() {
               {hoverResources ? "Coming Soon" : "Resources"}
             </Link>
           </li>
-          {/* <Button
+          
+
+
+          <Button
           
           ref={anchorRef}
           aria-controls={open ? 'menu-list-grow' : undefined}
@@ -165,20 +174,33 @@ function Navbar() {
               </Paper>
             </Grow>
           )}
-        </Popper> */}
-        <div style= {{height: '100%', paddingTop: '20px', paddingBottom: '20px'}}>
+        </Popper>
+
+{/*         
+        <div style= {{height: '100%', paddingTop: '20px', paddingBottom: '20px', width: '100px'}}>
 
 
+        
+        <li>
         <Button
-          
-          variant="contained" style = {{background: "#2E666E", color: 'white', fontWeight: 'bold', height: '50px', width: '110px', borderRadius: '20px', justifyContent: 'center', verticalAlign: ''}}
+          onClick = {()=>history.push('/signup')}
+          variant="contained" style = {{background: "#2E666E", color: 'white', fontWeight: 'bold', height: '30px', width: '110px', borderRadius: '20px', justifyContent: 'center', verticalAlign: ''}}
         >
           <div className = "myaccount" >
             Sign Up
           </div>
           
         </Button>
-        </div>
+            <Link
+              to="/signin"
+              className="nav-links"
+              onClick={closeMobileMenu}
+              style ={{fontSize: '16px'}}
+            >
+              Sign In
+            </Link>
+          </li>
+        </div> */}
 
 
           
