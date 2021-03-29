@@ -8,7 +8,9 @@ import {
   TextField,
   withStyles,
   IconButton,
+  Snackbar,
   ClickAwayListener,
+  Tooltip,
 } from "@material-ui/core";
 import Search from "../components/marketplace/Search";
 import Business from "../components/marketplace/Business";
@@ -20,6 +22,7 @@ import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import Map from "../assets/map.jpg";
 import Message from "../components/marketplace/Message.js";
 import GoogleMapReact from "google-map-react";
+import Navbar from "../components/navbar/Navbar";
 import businesses from "../data/businesses.js";
 
 const styles = () => ({
@@ -51,6 +54,7 @@ const Marketplace = (props) => {
   const [msgPanel, setMsgPanel] = useState(false);
   const [partner, setPartner] = useState(null);
   const [view, setView] = useState("card");
+  const [showSnackbar, setShowSnackbar] = useState(false);
 
   const handleSortClick = (e) => {
     setAnchorEl(e.target);
@@ -82,6 +86,13 @@ const Marketplace = (props) => {
   const closeMsgPanel = () => {
     setMsgPanel(false);
     setPartner(null);
+  };
+  const msgSent = () => {
+    setShowSnackbar(true);
+    closeMsgPanel();
+  };
+  const hideSnackbar = () => {
+    setShowSnackbar(false);
   };
 
   const handleCardClick = (partner) => {
@@ -131,20 +142,24 @@ const Marketplace = (props) => {
       <Grid item xs={1}>
         <div className={classes.view}>
           <p>View</p>
-          <IconButton
-            style={{ backgroundColor: "transparent", marginRight: -5 }}
-            disableRipple
-            onClick={() => handleSetView("map")}
-          >
-            <LocationOnIcon />
-          </IconButton>
-          <IconButton
-            style={{ backgroundColor: "transparent", marginLeft: -5 }}
-            disableRipple
-            onClick={() => handleSetView("card")}
-          >
-            <ViewHeadlineIcon />
-          </IconButton>
+          <Tooltip title="Map View">
+            <IconButton
+              style={{ backgroundColor: "transparent", marginRight: -5 }}
+              disableRipple
+              onClick={() => handleSetView("map")}
+            >
+              <LocationOnIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="List View">
+            <IconButton
+              style={{ backgroundColor: "transparent", marginLeft: -5 }}
+              disableRipple
+              onClick={() => handleSetView("card")}
+            >
+              <ViewHeadlineIcon />
+            </IconButton>
+          </Tooltip>
         </div>
       </Grid>
       <Grid item xs={3} style={{ textAlign: "left" }}>
@@ -191,8 +206,9 @@ const Marketplace = (props) => {
 
   return (
     <>
+      <Navbar />
       <Search />
-      <Grid container justify="center">
+      <Grid style={{ backgroundColor: "#F0F8FF" }} container justify="center">
         {view === "map" ? (
           <>
             <Grid item xs={10}>
@@ -273,9 +289,15 @@ const Marketplace = (props) => {
       </Grid>
       {msgPanel && (
         <ClickAwayListener onClickAway={closeMsgPanel}>
-          <Message partner={partner.name} />
+          <Message partner={partner.name} msgSent={msgSent} />
         </ClickAwayListener>
       )}
+      <Snackbar
+        open={showSnackbar}
+        onClose={hideSnackbar}
+        message="Message Sent!"
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      />
     </>
   );
 };

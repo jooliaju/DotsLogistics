@@ -19,6 +19,8 @@ import RequestQuote from "./pages/RequestQuote.js";
 import Customers from "./pages/Customers";
 import Invoice from "./pages/Invoice";
 
+import SignUp from "./pages/SignUp.js";
+import SignIn from "./pages/SignIn.js";
 
 class App extends Component {
   render() {
@@ -32,6 +34,20 @@ class App extends Component {
           <Route exact path="/invoice" component={Invoice} />
 
           <Route exact path="/404" component={NotFoundPage} />
+          <Route
+            exact
+            path="/signin"
+            render={(props) => {
+              return <SignIn {...props} />;
+            }}
+          />
+          <Route
+            exact
+            path="/signup"
+            render={(props) => {
+              return <SignUp {...props} />;
+            }}
+          />
           <Route
             exact
             path="/marketplace"
