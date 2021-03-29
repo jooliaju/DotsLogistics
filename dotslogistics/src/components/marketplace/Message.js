@@ -25,9 +25,20 @@ const styles = () => ({
     width: "100%",
     textAlign: "right",
   },
+  btn: {
+    margin: 10,
+    textTransform: "none",
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  },
 });
 
 class Message extends Component {
+  handleSend = () => {
+    this.props.msgSent();
+  };
+
   render() {
     const { classes, partner } = this.props;
     return (
@@ -50,7 +61,14 @@ class Message extends Component {
             rows={6}
           />
           <div className={classes.sendBtn}>
-            <Button endIcon={<SendIcon />}>Send</Button>
+            <Button
+              className={classes.btn}
+              style={{ backgroundColor: "transparent" }}
+              endIcon={<SendIcon />}
+              onClick={this.handleSend}
+            >
+              Send
+            </Button>
           </div>
         </Card>
       </div>
