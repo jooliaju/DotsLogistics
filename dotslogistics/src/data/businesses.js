@@ -1,9 +1,14 @@
+import BusinessImage1 from "../assets/business1.jpg";
+import BusinessImage2 from "../assets/business2.jpg";
+import BusinessImage3 from "../assets/business3.jpeg";
+import BusinessImage4 from "../assets/business4.jpg";
+
 const businesses = [
   {
     name: "Dataraction",
     location: "Toronto, ON",
     desc: "The Robin Hood of Education!?",
-    img: "",
+    img: BusinessImage1,
     price: 20,
     reviews: [
       {
@@ -26,7 +31,7 @@ const businesses = [
     name: "DotsLogistics",
     location: "Toronto, ON",
     desc: "The Snow Bunnies",
-    img: "",
+    img: BusinessImage2,
     price: 30,
     reviews: [
       {
@@ -49,7 +54,7 @@ const businesses = [
     name: "Supply R Us",
     location: "Guelph, ON",
     desc: "BLAH BLAH BLAH BLAH BLAH",
-    img: "",
+    img: BusinessImage3,
     price: 60,
     reviews: [
       {
@@ -72,7 +77,7 @@ const businesses = [
     name: "Entropy",
     location: "Kitchener, ON",
     desc: "YOYOYOYOYOYOYOYOYOOYOYOYOYOYOYOYOYOYOYO",
-    img: "",
+    img: BusinessImage4,
     price: 10,
     reviews: [
       {
@@ -92,5 +97,18 @@ const businesses = [
     numPartners: 1,
   },
 ];
+
+export function addBusiness(name, desc, location, price) {
+  businesses.push({
+    name,
+    location,
+    desc,
+    img: "",
+    price,
+    reviews: [],
+    rating: 0,
+    numPartners: 0,
+  });
+}
 
 export default businesses;

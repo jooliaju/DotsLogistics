@@ -15,14 +15,20 @@ const styles = () => ({
   },
   businessDetails: {
     textAlign: "left",
+    color: "#2F666E",
   },
   button: {
     width: 200,
     height: 50,
     textTransform: "none",
     fontSize: 16,
-    borderRadius: 0,
     marginBottom: 20,
+    borderRadius: 20,
+    backgroundColor: "#2A8D88",
+    color: "white",
+    "&:hover": {
+      backgroundColor: "rgb(42, 141, 136, 0.5)",
+    },
   },
   buttonWrapper: {
     marginTop: 40,
@@ -64,15 +70,15 @@ class BusinessCard extends React.Component {
 
   render() {
     const { classes, business, handleCardClick } = this.props;
-    const { name, location, desc, rating } = business;
+    const { name, location, desc, rating, img } = business;
     return (
       <Grid container spacing={5} justify="center">
         <Grid item>
           <div className={classes.imgContainer}>
             <img
               className={classes.businessImage}
-              src={BusinessImage}
-              alt="Turtwig"
+              src={img}
+              alt={name}
               width="275"
               height="200"
             />
@@ -82,7 +88,11 @@ class BusinessCard extends React.Component {
               style={{ backgroundColor: "transparent" }}
               disableRipple
             >
-              {this.state.favourite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+              {this.state.favourite ? (
+                <FavoriteIcon style={{ color: "red" }} />
+              ) : (
+                <FavoriteBorderIcon />
+              )}
             </IconButton>
           </div>
         </Grid>
@@ -111,7 +121,6 @@ class BusinessCard extends React.Component {
           <Button
             className={classes.button}
             variant="contained"
-            disableElevation
             fullWidth
             onClick={this.handleRequestClick}
           >
@@ -120,7 +129,6 @@ class BusinessCard extends React.Component {
           <Button
             className={classes.button}
             variant="contained"
-            disableElevation
             fullWidth
             onClick={this.handleMessageClick}
           >

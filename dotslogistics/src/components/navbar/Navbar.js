@@ -1,27 +1,25 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './Navbar.css';
-import Dropdown from './Dropdown';
-import Button from '@material-ui/core/Button';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
-import { makeStyles } from '@material-ui/core/styles';
-import Logo from '../../pictures/dotsLogo.png';
-
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./Navbar.css";
+import Dropdown from "./Dropdown";
+import Button from "@material-ui/core/Button";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Grow from "@material-ui/core/Grow";
+import Paper from "@material-ui/core/Paper";
+import Popper from "@material-ui/core/Popper";
+import MenuItem from "@material-ui/core/MenuItem";
+import MenuList from "@material-ui/core/MenuList";
+import { makeStyles } from "@material-ui/core/styles";
+import Logo from "../../pictures/dotsLogo.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    display: "flex",
   },
   paper: {
     marginRight: theme.spacing(2),
   },
 }));
-
 
 function Navbar() {
   const [click, setClick] = useState(false);
@@ -48,6 +46,7 @@ function Navbar() {
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [hoverResources, setHoverResources] = React.useState(false);
   const anchorRef = React.useRef(null);
 
   const handleToggle = () => {
@@ -63,7 +62,7 @@ function Navbar() {
   };
 
   function handleListKeyDown(event) {
-    if (event.key === 'Tab') {
+    if (event.key === "Tab") {
       event.preventDefault();
       setOpen(false);
     }
@@ -79,48 +78,44 @@ function Navbar() {
     prevOpen.current = open;
   }, [open]);
 
-
   return (
     <>
-      <nav className='navbar' style = {{display : 'flex', alignItems: 'center'}}>
-        <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
-          <img src = {Logo} style = {{width: '60%'}}></img>
+      <nav className="navbar" style={{ display: "flex", alignItems: "center" }}>
+        <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
+          <img src={Logo} style={{ width: "60%" }}></img>
         </Link>
-        <div className='menu-icon' onClick={handleClick}>
-          <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
+        <div className="menu-icon" onClick={handleClick}>
+          <i className={click ? "fas fa-times" : "fas fa-bars"} />
         </div>
-        <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-          <li className='nav-item'>
-            <Link to='/' className='nav-links' onClick={closeMobileMenu}>
+        <ul className={click ? "nav-menu active" : "nav-menu"}>
+          <li className="nav-item">
+            <Link to="/" className="nav-links" onClick={closeMobileMenu}>
               Home
             </Link>
           </li>
-          <li
-            className='nav-item'>
-            <Link
-              to='/'
-              className='nav-links'
-              onClick={closeMobileMenu}
-            >
-              Features 
+          <li className="nav-item">
+            <Link to="/" className="nav-links" onClick={closeMobileMenu}>
+              Features
             </Link>
           </li>
-          <li className='nav-item'>
+          <li className="nav-item">
             <Link
-              to='/marketplace'
-              className='nav-links'
+              to="/marketplace"
+              className="nav-links"
               onClick={closeMobileMenu}
             >
               MarketPlace
             </Link>
           </li>
-          <li className='nav-item'>
+          <li className="nav-item">
             <Link
-              to='/dash'
-              className='nav-links'
+              to="/"
+              className="nav-links"
               onClick={closeMobileMenu}
+              onMouseEnter={() => setHoverResources(true)}
+              onMouseLeave={() => setHoverResources(false)}
             >
-              Resources
+              {hoverResources ? "Coming Soon" : "Resources"}
             </Link>
           </li>
           {/* <Button
@@ -188,7 +183,6 @@ function Navbar() {
 
           
         </ul>
-       
       </nav>
     </>
   );

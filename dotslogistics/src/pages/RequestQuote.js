@@ -11,25 +11,28 @@ import {
   FormControlLabel,
   Checkbox,
   InputAdornment,
+  Snackbar,
 } from "@material-ui/core";
 import SearchBanner from "../assets/searchBanner.jpg";
+import Navbar from "../components/navbar/Navbar";
 
 const styles = () => ({
   banner: {
-    height: 300,
+    height: 100,
     backgroundImage: `url(${SearchBanner})`,
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",
     backgroundSize: "cover",
-    padding: 60,
+    padding: 50,
     opacity: 0.4,
     alignItems: "center",
-    position: "sticky",
-    top: 0,
+    textAlign: "center",
+    fontSize: 20,
   },
   title: {
     height: 100,
     padding: 15,
+    textAlign: "center",
   },
   inputBox: {
     width: "80%",
@@ -41,18 +44,41 @@ const styles = () => ({
   },
   paper: {
     borderRadius: 20,
+    padding: "40px 80px 40px 80px",
+    marginTop: 60,
+    backgroundColor: "rgb(209, 230, 254, 0.5)",
   },
   field: {
     marginTop: 10,
     marginBottom: 10,
+    backgroundColor: "white",
+  },
+  btnWrap: {
+    textAlign: "center",
+    width: "100%",
+  },
+  btn: {
+    borderRadius: 20,
+    height: 50,
+    textTransform: "none",
+    fontSize: 18,
+    width: "20%",
+    border: "1px solid #2A8D88",
+    color: "#2A8D88",
+    backgroundColor: "white",
+    "&:hover": {
+      backgroundColor: "#2A8D88",
+      color: "white",
+    },
   },
 });
 
 const RequestQuote = (props) => {
-  const { classes, match } = props;
+  const { classes, match, history } = props;
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [businessName, setBusinessName] = useState(match.params.bus);
+  const [quoteSent, setQuoteSent] = useState(false);
 
   const handleChange = (field) => (e) => {
     switch (field) {
@@ -70,27 +96,37 @@ const RequestQuote = (props) => {
     }
   };
 
+  const handleSubmit = () => {
+    setQuoteSent(true);
+    window.setTimeout(() => {
+      history.push("/marketplace");
+    }, 1000);
+  };
+  const handleCloseSnackbar = () => {
+    setQuoteSent(false);
+  };
+
   return (
     <>
-      <div className={classes.banner}></div>
-      <Container maxWidth="md">
+      <Navbar />
+      <div className={classes.banner}>
+        <h1 style={{ height: "100%" }}>Request for Quote</h1>
+      </div>
+      <Container maxWidth="lg">
         <Paper className={classes.paper} elevation={6}>
-          <div className={classes.title}>
-            <h1>Request for Quote</h1>
-          </div>
           <Grid className={classes.form} container spacing={4} justify="center">
             <Grid item xs={5}>
               <TextField
                 className={classes.field}
                 fullWidth
-                variant="filled"
+                variant="outlined"
                 label="First Name"
                 onChange={() => handleChange(1)}
               />
               <TextField
                 className={classes.field}
                 fullWidth
-                variant="filled"
+                variant="outlined"
                 label="Business Name"
                 onChange={() => handleChange(3)}
                 value={businessName}
@@ -98,28 +134,28 @@ const RequestQuote = (props) => {
               <TextField
                 className={classes.field}
                 fullWidth
-                variant="filled"
+                variant="outlined"
                 label="Phone Number"
                 onChange={() => handleChange(5)}
               />
               <TextField
                 className={classes.field}
                 fullWidth
-                variant="filled"
+                variant="outlined"
                 label="Commodity Type"
                 onChange={() => handleChange(7)}
               />
               <TextField
                 className={classes.field}
                 fullWidth
-                variant="filled"
+                variant="outlined"
                 label="Pick Up Address"
                 onChange={() => handleChange(9)}
               />
               <TextField
                 className={classes.field}
                 fullWidth
-                variant="filled"
+                variant="outlined"
                 label="Commodity Value"
                 InputProps={{
                   startAdornment: (
@@ -131,7 +167,7 @@ const RequestQuote = (props) => {
               <TextField
                 className={classes.field}
                 fullWidth
-                variant="filled"
+                variant="outlined"
                 label="Contact Duration"
                 select
                 onChange={() => handleChange(13)}
@@ -145,40 +181,40 @@ const RequestQuote = (props) => {
               <TextField
                 className={classes.field}
                 fullWidth
-                variant="filled"
+                variant="outlined"
                 label="Last Name"
                 onChange={() => handleChange(2)}
               />
               <TextField
                 className={classes.field}
                 fullWidth
-                variant="filled"
+                variant="outlined"
                 label="Business Location"
                 onChange={() => handleChange(4)}
               />
               <TextField
                 className={classes.field}
                 fullWidth
-                variant="filled"
+                variant="outlined"
                 label="Title"
               />
               <TextField
                 className={classes.field}
                 fullWidth
-                variant="filled"
+                variant="outlined"
                 label="Zip Code"
               />
               <TextField
                 className={classes.field}
                 fullWidth
-                variant="filled"
+                variant="outlined"
                 label="Delivery Address"
                 onChange={() => handleChange(10)}
               />
               <TextField
                 className={classes.field}
                 fullWidth
-                variant="filled"
+                variant="outlined"
                 label="Weight"
                 InputProps={{
                   endAdornment: (
@@ -194,28 +230,49 @@ const RequestQuote = (props) => {
               </p>
               <FormGroup>
                 <FormControlLabel
-                  control={<Checkbox name="insurance" />}
+                  control={
+                    <Checkbox style={{ color: "#2A8D88" }} name="insurance" />
+                  }
                   label="Insurance Policy"
                 />
                 <FormControlLabel
-                  control={<Checkbox name="one-off" />}
+                  control={
+                    <Checkbox style={{ color: "#2A8D88" }} name="one-off" />
+                  }
                   label="One-off Transaction"
                 />
                 <FormControlLabel
-                  control={<Checkbox name="open bid" />}
+                  control={
+                    <Checkbox style={{ color: "#2A8D88" }} name="open bid" />
+                  }
                   label="Open Bid"
                 />
               </FormGroup>
               <br />
               <TextField
+                className={classes.field}
                 multiline
-                rows={12}
+                rows={6}
                 fullWidth
                 label="Notes"
                 variant="outlined"
               />
             </div>
-            <Button>Submit</Button>
+            <div className={classes.btnWrap}>
+              <Button
+                className={classes.btn}
+                variant="outlined"
+                onClick={handleSubmit}
+              >
+                Submit
+              </Button>
+            </div>
+            <Snackbar
+              open={quoteSent}
+              onClose={handleCloseSnackbar}
+              message="Quote Sent!"
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            />
           </Grid>
         </Paper>
       </Container>
