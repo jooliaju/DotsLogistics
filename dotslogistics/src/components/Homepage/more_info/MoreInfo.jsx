@@ -30,8 +30,9 @@ const useStyles = makeStyles((theme) => ({
 export default function MoreInfo() {
 
 
-const dummyText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Integer feugiat scelerisque varius morbi. Pretium aenean pharetra magna ac placerat vestibulum lectus. Aliquam ut porttitor leo a diam sollicitudin tempor id. Et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut. Orci eu lobortis elementum nibh tellus molestie. Turpis egestas sed tempus urna. Adipiscing at in tellus integer. Habitasse platea dictumst quisque sagittis. In hac habitasse platea dictumst quisque. Rutrum quisque non tellus orci ac auctor augue. Amet luctus venenatis lectus magna fringilla. Interdum posuere lorem ipsum dolor. Tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius. Ultricies tristique nulla aliquet enim tortor. Viverra aliquet eget sit amet tellus. Nisi porta lorem mollis aliquam ut. "
-     
+const quote = "An open-source platform with AI capabilities that connects warehouses, logistics companies, and small businesses to find partners and complete transactions"
+const quote2 = " Dots Logistics is tailored towards supporting B2B and B2C relationships, helping improve the efficiency within the supply and logistics sector";
+const quote3 = "A low-cost solution for SMEs during and post-COVID";
 
 
   const classes = useStyles();
@@ -43,12 +44,22 @@ const dummyText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
       <Grid item xs={4}>
       <Grid item xs={12} className={classes.style1} >  </Grid>
 
-          <h1 style = {{textAlign : 'center', fontWeight: 'bold', color: 'blue'}}>more info</h1>
+          <h1 style = {{textAlign : 'center',fontWeight: 'bold', color: '#2E666E'}}>More info</h1>
           <Grid item xs={12} className={classes.style1} >  </Grid>
-          <Grid item xs={12} style = {{textAlign : 'left', padding: '50px'}}> {dummyText}</Grid>
+          <Grid item xs={12} style = {{textAlign : 'left', padding: '10px'}}> 
+              <ul style ={{fontSize: '20px'}}>
+                <li>{quote}</li>
+                <Grid item xs={12} className={classes.style1} >  </Grid>
+
+                <li>{quote2}</li>
+                <Grid item xs={12} className={classes.style1} >  </Grid>
+                <li>{quote3}</li>
+              </ul>
+          
+          </Grid>
           <Grid item xs={12} className={classes.style1} >  </Grid>
           <Grid item xs={12} className={classes.style1} > 
-          <Button variant="contained" color="primary">
+          <Button variant="contained" style = {{background: "#2E666E", color: 'white', fontWeight: 'bold'}}>
                 Read More
             </Button>
            </Grid>

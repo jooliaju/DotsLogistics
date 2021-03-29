@@ -8,6 +8,7 @@ import Navbar from "../components/navbar/Navbar";
 
 
 
+
 function HomePage() {
   return (
     <div className="App">
@@ -15,6 +16,7 @@ function HomePage() {
       <HomeImage />
       <Features />
       <MoreInfo/>
+      <div style = {{height: '50px'}}/>
       <Footer />
     </div>
   );

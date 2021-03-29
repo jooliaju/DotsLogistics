@@ -34,7 +34,8 @@ const useStyles = makeStyles((theme) => ({
     return (
       <div className={classes.root}>
         <Grid container >
-          <Grid item xs={4}>
+          <div style = {{display: 'flex', alignItems: 'center'}}>
+          <Grid item xs={6}>
             <h1 style = {{textAlign: 'left', padding: '10px'}}>Welcome to your Dashboard</h1>
             <div style = {{display: 'flex', alignItems : 'center', paddingBottom : "50px"}}>
              <img src={Drone} style ={{width : 200, paddingLeft: '50px', paddingTop: '20px'}}/>
@@ -46,16 +47,16 @@ const useStyles = makeStyles((theme) => ({
             </div>
             
           </Grid>
-          <Grid item xs={8} >
+          <Grid item xs={6} >
 
-            <Card style ={{backgroundColor: "white", height : '150px', margin: '20px'}}>
+            <Card style ={{backgroundColor: "white", height : '150px'}}>
                 <CardContent>
                     <Grid container>
                         <Grid item xs = {12} style = {{textAlign : 'left'}}>
                             Requests for Proposals
                         </Grid>
 
-                        <Grid item xs = {12} style = {{height :'25px'}} > </Grid>
+                    
 
                         <Grid item xs = {3} style = {{textAlign : 'center'}}>
                             <paper className = {classes.paper}>
@@ -89,6 +90,8 @@ const useStyles = makeStyles((theme) => ({
 
             </Card>
           </Grid>
+
+          </div>
           
         </Grid>
       </div>

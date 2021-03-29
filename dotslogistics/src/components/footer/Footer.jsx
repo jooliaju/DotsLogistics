@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
 const Footer = () => (
-  <div className="footer">
+  <div className="footer" style = {{background: '#2E666E'}}>
 
     <Grid container spacing={3}>
         <Grid item xs={12} style = {{height: '50px'}}></Grid>

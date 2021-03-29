@@ -16,6 +16,9 @@ import NotFoundPage from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
 import Marketplace from "./pages/Marketplace.js";
 import RequestQuote from "./pages/RequestQuote.js";
+import Customers from "./pages/Customers";
+import Invoice from "./pages/Invoice";
+
 
 class App extends Component {
   render() {
@@ -25,6 +28,9 @@ class App extends Component {
           {/*All our Routes goes here!*/}
           <Route exact path="/" component={HomePage} />
           <Route exact path="/dash" component={Dashboard} />
+          <Route exact path="/customers" component={Customers} />
+          <Route exact path="/invoice" component={Invoice} />
+
           <Route exact path="/404" component={NotFoundPage} />
           <Route
             exact

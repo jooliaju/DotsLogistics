@@ -5,39 +5,72 @@ import * as IoIcons from 'react-icons/io';
 
 export const SidebarData = [
   {
-    title: 'Home',
-    path: '/',
+    title: 'DASHBOARD',
+    path: '/dash',
     icon: <AiIcons.AiFillHome />,
     cName: 'nav-text1'
   },
   {
-    title: 'Reports',
+    title: 'APPS',
     path: '/reports',
     icon: <IoIcons.IoIosPaper />,
     cName: 'nav-text1'
   },
   {
-    title: 'Products',
+    title: 'Email',
+    path: '/reports',
+    cName: 'nav-text1'
+  },
+  {
+    title: 'Chat',
+    path: '/reports',
+    cName: 'nav-text1'
+  },
+  {
+    title: 'Tasks',
+    path: '/reports',
+    cName: 'nav-text1'
+  },
+  {
+    title: 'Calendar',
+    path: '/reports',
+    cName: 'nav-text1'
+  },
+  {
+    title: 'MarketPlace',
+    path: '/reports',
+    cName: 'nav-text1'
+  },
+  {
+    title: 'Customers',
+    path: '/customers',
+    cName: 'nav-text1'
+  },
+  {
+    title: 'FORMS & TABLE',
     path: '/products',
     icon: <FaIcons.FaCartPlus />,
     cName: 'nav-text1'
   },
   {
-    title: 'Team',
+    title: 'Search Criteria',
+    path: '/reports',
+    cName: 'nav-text1'
+  },
+  {
+    title: 'Request for Proposal',
+    path: '/reports',
+    cName: 'nav-text1'
+  },
+  {
+    title: 'Contract Form',
+    path: '/reports',
+    cName: 'nav-text1'
+  },
+  {
+    title: 'Invoice Form',
     path: '/team',
-    icon: <IoIcons.IoMdPeople />,
     cName: 'nav-text1'
   },
-  {
-    title: 'Messages',
-    path: '/messages',
-    icon: <FaIcons.FaEnvelopeOpenText />,
-    cName: 'nav-text1'
-  },
-  {
-    title: 'Support',
-    path: '/support',
-    icon: <IoIcons.IoMdHelpCircle />,
-    cName: 'nav-text1'
-  }
+
 ];
