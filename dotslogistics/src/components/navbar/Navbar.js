@@ -208,6 +208,7 @@ function Navbar(props) {
             <>
               <li className="nav-item">
                 <Button
+                  fullWidth
                   onClick={() => history.push("/signin")}
                   onMouseEnter={(event) => setAnchorEl(event.currentTarget)}
                   onMouseLeave={() => setAnchorEl(null)}
@@ -217,7 +218,6 @@ function Navbar(props) {
                     color: "white",
                     fontWeight: "bold",
                     height: "40px",
-                    width: "110px",
                     borderRadius: "20px",
                     justifyContent: "center",
                     verticalAlign: "",

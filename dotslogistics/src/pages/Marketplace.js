@@ -44,6 +44,15 @@ const styles = () => ({
     paddingLeft: 65,
     paddingRight: 65,
   },
+  mapFilter: {
+    background: "#2E666E",
+    color: "white",
+    fontWeight: "bold",
+    height: "40px",
+    borderRadius: "20px",
+    justifyContent: "center",
+    verticalAlign: "",
+  },
 });
 
 const Marketplace = (props) => {
@@ -57,6 +66,9 @@ const Marketplace = (props) => {
   const [view, setView] = useState("card");
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [displayBus, setDisplayBus] = useState(businesses);
+  const [busCategory, setBusCategory] = useState("");
+  const [service, setService] = useState("");
+  const [destination, setDestination] = useState("");
 
   const handleSortClick = (e) => {
     setAnchorEl(e.target);
@@ -251,10 +263,12 @@ const Marketplace = (props) => {
                   fullWidth
                   label="Business Category"
                   select
+                  onChange={(e) => setBusCategory(e.target.value)}
+                  value={busCategory}
                 >
-                  <MenuItem>A</MenuItem>
-                  <MenuItem>B</MenuItem>
-                  <MenuItem>Logistics</MenuItem>
+                  <MenuItem value="">-</MenuItem>
+                  <MenuItem value="supply chain">Supply Chain</MenuItem>
+                  <MenuItem value="logistics">Logistics</MenuItem>
                 </TextField>
                 <TextField
                   fullWidth
@@ -266,21 +280,37 @@ const Marketplace = (props) => {
                   fullWidth
                   label="Service"
                   select
+                  onChange={(e) => setService(e.target.value)}
+                  value={service}
                 >
-                  <MenuItem>A</MenuItem>
-                  <MenuItem>B</MenuItem>
-                  <MenuItem>Warehouse</MenuItem>
+                  <MenuItem value="">-</MenuItem>
+                  <MenuItem value="carrier">Carrier</MenuItem>
+                  <MenuItem value="shipper">Shipper</MenuItem>
+                  <MenuItem value="manufacturer">Manufacturer</MenuItem>
+                  <MenuItem value="warehouse">Warehouse</MenuItem>
                 </TextField>
                 <TextField
                   className={classes.field}
                   fullWidth
                   label="Destination"
                   select
+                  onChange={(e) => setDestination(e.target.value)}
+                  value={destination}
                 >
-                  <MenuItem>North America</MenuItem>
-                  <MenuItem>Asia</MenuItem>
-                  <MenuItem>International</MenuItem>
+                  <MenuItem value="">-</MenuItem>
+                  <MenuItem value="north america">North America</MenuItem>
+                  <MenuItem value="asia">Asia</MenuItem>
+                  <MenuItem value="international">International</MenuItem>
                 </TextField>
+                <br />
+                <br />
+                <Button
+                  variant="contained"
+                  fullWidth
+                  className={classes.mapFilter}
+                >
+                  Search
+                </Button>
               </Grid>
               <Grid item xs={10}>
                 {/*<img src={Map} alt="Map" />*/}
