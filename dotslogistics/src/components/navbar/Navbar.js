@@ -141,7 +141,7 @@ function Navbar() {
           </div>
           
         </Button>
-        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal className = "popper" >
           {({ TransitionProps, placement }) => (
             <Grow
               {...TransitionProps}

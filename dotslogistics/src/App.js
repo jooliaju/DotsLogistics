@@ -21,6 +21,7 @@ import Invoice from "./pages/Invoice";
 
 import SignUp from "./pages/SignUp.js";
 import SignIn from "./pages/SignIn.js";
+import Pricing from "./pages/Pricing";
 
 class App extends Component {
   render() {
@@ -29,6 +30,7 @@ class App extends Component {
         <Switch>
           {/*All our Routes goes here!*/}
           <Route exact path="/" component={HomePage} />
+          <Route exact path= "/pricing" component = {Pricing} />
           <Route exact path="/dash" component={Dashboard} />
           <Route exact path="/customers" component={Customers} />
           <Route exact path="/invoice" component={Invoice} />
