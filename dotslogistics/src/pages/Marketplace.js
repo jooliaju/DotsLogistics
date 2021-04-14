@@ -49,6 +49,7 @@ const styles = () => ({
     color: "white",
     fontWeight: "bold",
     height: "40px",
+    width: "45%",
     borderRadius: "20px",
     justifyContent: "center",
     verticalAlign: "",
@@ -69,6 +70,10 @@ const Marketplace = (props) => {
   const [busCategory, setBusCategory] = useState("");
   const [service, setService] = useState("");
   const [destination, setDestination] = useState("");
+  const [commodity, setCommodity] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [lat, setLat] = useState(Math.floor(Math.random() * 181) - 90);
+  const [lng, setLng] = useState(Math.floor(Math.random() * 361) - 180);
 
   const handleSortClick = (e) => {
     setAnchorEl(e.target);
@@ -119,7 +124,16 @@ const Marketplace = (props) => {
     history.push("/marketplace");
   };
 
+  const clearFilters = () => {
+    setBusCategory("");
+    setService("");
+    setDestination("");
+    setCommodity("");
+    setZipCode("");
+  };
+
   const handleSearch = (input) => {
+    setView("card");
     let temp = businesses;
     if (input.search) {
       temp = temp.filter(
@@ -257,6 +271,8 @@ const Marketplace = (props) => {
                   fullWidth
                   className={classes.field}
                   label="Commodity Type"
+                  onChange={(e) => setCommodity(e.target.value)}
+                  value={commodity}
                 />
                 <TextField
                   className={classes.field}
@@ -274,6 +290,8 @@ const Marketplace = (props) => {
                   fullWidth
                   className={classes.field}
                   label="Location: Zip Code"
+                  onChange={(e) => setZipCode(e.target.value)}
+                  value={zipCode}
                 />
                 <TextField
                   className={classes.field}
@@ -304,26 +322,31 @@ const Marketplace = (props) => {
                 </TextField>
                 <br />
                 <br />
-                <Button
-                  variant="contained"
-                  fullWidth
-                  className={classes.mapFilter}
+                <div
+                  style={{ display: "flex", justifyContent: "space-around" }}
                 >
-                  Search
-                </Button>
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    className={classes.mapFilter}
+                  >
+                    Search
+                  </Button>
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    className={classes.mapFilter}
+                    onClick={clearFilters}
+                  >
+                    Clear
+                  </Button>
+                </div>
               </Grid>
               <Grid item xs={10}>
                 {/*<img src={Map} alt="Map" />*/}
                 <div style={{ height: "100vh", width: "100%" }}>
-                  <GoogleMapReact
-                    defaultCenter={{ lat: 59.95, lng: 30.33 }}
-                    defaultZoom={11}
-                  >
-                    <AnyReactComponent
-                      lat={59.955413}
-                      lng={30.337844}
-                      text="My Marker"
-                    />
+                  <GoogleMapReact defaultCenter={{ lat, lng }} defaultZoom={11}>
+                    <AnyReactComponent lat={lat} lng={lng} />
                   </GoogleMapReact>
                 </div>
               </Grid>

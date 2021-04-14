@@ -75,6 +75,7 @@ class Search extends React.Component {
           onSubmit={(e) => {
             e.preventDefault();
             this.props.handleSearch(this.state);
+            this.setState({ search: "", category: "", location: "" });
           }}
         >
           <Grid container spacing={2} justify="center">
@@ -86,6 +87,7 @@ class Search extends React.Component {
                 InputProps={{ disableUnderline: true }}
                 placeholder="Search for shippers, carriers, or transport services..."
                 onChange={this.handleChange}
+                value={this.state.search}
               />
             </Grid>
             <Grid container item xs={1}>
@@ -117,6 +119,7 @@ class Search extends React.Component {
                 InputProps={{ disableUnderline: true }}
                 placeholder="Location"
                 onChange={this.handleSetLocation}
+                value={this.state.location}
               />
             </Grid>
             <Grid container item xs={1}>
