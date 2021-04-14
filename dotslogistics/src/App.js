@@ -120,7 +120,7 @@ class App extends Component {
             exact
             path="/signup"
             render={(props) => {
-              return <SignUp {...props} />;
+              return <SignUp {...props} signedIn={this.signedIn} />;
             }}
           />
           <Route

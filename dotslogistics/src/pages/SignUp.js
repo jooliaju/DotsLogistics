@@ -76,11 +76,13 @@ const styles = () => ({
 });
 
 const SignUp = (props) => {
-  const { classes, history } = props;
+  const { classes, history, signedIn } = props;
   const [businessName, setBusinessName] = useState("");
   const [desc, setDesc] = useState("");
   const [city, setCity] = useState("");
   const [price, setPrice] = useState(0);
+  const [category, setCategory] = useState("");
+  const [acceptTerms, setAcceptTerms] = useState(false);
 
   const handleBusNameChange = (e) => {
     setBusinessName(e.target.value);
@@ -94,10 +96,16 @@ const SignUp = (props) => {
   const handlePriceChange = (e) => {
     setPrice(e.target.value);
   };
+  const handleCategory = (e) => {
+    setCategory(e.target.value);
+  };
 
   const handleSubmit = () => {
-    addBusiness(businessName, desc, city, price);
-    history.push("/dash");
+    if (acceptTerms) {
+      signedIn();
+      addBusiness(businessName, desc, city, price);
+      history.push("/dash");
+    }
   };
 
   const [showPassword, setShowPassword] = useState(false);
@@ -126,6 +134,7 @@ const SignUp = (props) => {
           <Paper className={classes.paper} elevation={10}>
             <h3 className={classes.subHeader}>Business Details</h3>
             <TextField
+              required
               className={classes.field}
               fullWidth
               variant="filled"
@@ -136,6 +145,7 @@ const SignUp = (props) => {
               <strong>About Your Business</strong>
             </p>
             <TextField
+              required
               className={classes.field}
               multiline
               rows={3}
@@ -144,20 +154,48 @@ const SignUp = (props) => {
               placeholder="Provide a brief overview of your business..."
               onChange={handleDescChange}
             />
+            <TextField
+              required
+              className={classes.field}
+              style={{ width: "45%" }}
+              variant="filled"
+              label="Category"
+              select
+              onChange={handleCategory}
+              value={category}
+            >
+              <MenuItem value="carrier">Carrier</MenuItem>
+              <MenuItem value="shipper">Shipper</MenuItem>
+              <MenuItem value="manufacturer">Manufacturer</MenuItem>
+              <MenuItem value="warehouse">Warehouse</MenuItem>
+            </TextField>
+            <TextField
+              required
+              className={classes.field}
+              style={{ width: "45%" }}
+              variant="filled"
+              label="Industry"
+            />
+            <TextField
+              required
+              className={classes.field}
+              style={{ width: "45%" }}
+              variant="filled"
+              label="Starting Price"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">$</InputAdornment>
+                ),
+              }}
+              onChange={handlePriceChange}
+            />
             <div className={classes.colFields}>
-              <div style={{ width: "50%", marginRight: 20, marginTop: 32 }}>
-                <TextField
-                  className={classes.field}
-                  variant="filled"
-                  fullWidth
-                  label="Availability (Working Hours)"
-                />
-              </div>
               <div>
                 <p style={{ width: "100%", marginBottom: -5, marginLeft: 10 }}>
                   <strong>Business Address</strong>
                 </p>
                 <TextField
+                  required
                   className={classes.field}
                   style={{ width: "40%" }}
                   variant="filled"
@@ -165,6 +203,7 @@ const SignUp = (props) => {
                   onChange={handleCityChange}
                 />
                 <TextField
+                  required
                   className={classes.field}
                   style={{ width: "40%" }}
                   variant="filled"
@@ -178,6 +217,7 @@ const SignUp = (props) => {
                   <strong>Business Contact Details</strong>
                 </p>
                 <TextField
+                  required
                   className={classes.field}
                   variant="filled"
                   fullWidth
@@ -186,6 +226,7 @@ const SignUp = (props) => {
               </div>
               <div style={{ width: "45%", marginTop: 32 }}>
                 <TextField
+                  required
                   className={classes.field}
                   variant="filled"
                   fullWidth
@@ -195,47 +236,28 @@ const SignUp = (props) => {
             </div>
             <TextField
               className={classes.field}
-              style={{ width: "45%" }}
               variant="filled"
-              label="Business Partner or Shipper"
-              select
-            >
-              <MenuItem>Business Partner</MenuItem>
-              <MenuItem>Shipper</MenuItem>
-            </TextField>
-            <TextField
-              className={classes.field}
               style={{ width: "45%" }}
-              variant="filled"
-              label="Industry"
-            />
-            <TextField
-              className={classes.field}
-              style={{ width: "45%" }}
-              variant="filled"
-              label="Starting Price"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">$</InputAdornment>
-                ),
-              }}
-              onChange={handlePriceChange}
+              label="Availability (Working Hours)"
             />
             <Divider />
             <h3 className={classes.subHeader}>Contact Details</h3>
             <TextField
+              required
               className={classes.field}
               fullWidth
               variant="filled"
               label="Full Name"
             />
             <TextField
+              required
               className={classes.field}
               fullWidth
               variant="filled"
               label="Email Address"
             />
             <TextField
+              required
               className={classes.field}
               style={{ width: "45%" }}
               variant="filled"
@@ -266,6 +288,7 @@ const SignUp = (props) => {
               }}
             />
             <TextField
+              required
               className={classes.field}
               style={{ width: "45%" }}
               variant="filled"
@@ -296,7 +319,11 @@ const SignUp = (props) => {
               }}
             />
             <div style={{ display: "flex" }}>
-              <Checkbox style={{ color: "#2A8D88" }} />
+              <Checkbox
+                required
+                style={{ color: "#2A8D88" }}
+                onClick={() => setAcceptTerms(!acceptTerms)}
+              />
               <p style={{ marginTop: 15 }}>
                 I accept DotsLogistics Terms of Use & Privacy Policy
               </p>
