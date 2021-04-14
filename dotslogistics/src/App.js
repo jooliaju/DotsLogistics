@@ -130,7 +130,7 @@ class App extends Component {
               return (
                 <Marketplace
                   {...props}
-                  signedIn={this.signedIn}
+                  signedIn={this.state.signedIn}
                   logOut={this.logOut}
                 />
               );
@@ -143,7 +143,7 @@ class App extends Component {
               return (
                 <RequestQuote
                   {...props}
-                  signedIn={this.signedIn}
+                  signedIn={this.state.signedIn}
                   logOut={this.logOut}
                 />
               );

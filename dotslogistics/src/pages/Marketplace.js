@@ -48,6 +48,7 @@ const styles = () => ({
 
 const Marketplace = (props) => {
   const { classes, history, signedIn } = props;
+  console.log(signedIn);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [sort, setSort] = useState(null);
