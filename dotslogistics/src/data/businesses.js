@@ -7,7 +7,8 @@ const businesses = [
   {
     name: "Dataraction",
     location: "Toronto, ON",
-    desc: "The Robin Hood of Education!?",
+    desc:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
     img: BusinessImage1,
     price: 20,
     reviews: [
@@ -26,11 +27,13 @@ const businesses = [
     ],
     rating: 3,
     numPartners: 4,
+    category: "shipper",
   },
   {
     name: "DotsLogistics",
-    location: "Toronto, ON",
-    desc: "The Snow Bunnies",
+    location: "Mississauga, ON",
+    desc:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
     img: BusinessImage2,
     price: 30,
     reviews: [
@@ -49,11 +52,13 @@ const businesses = [
     ],
     rating: 5,
     numPartners: 7,
+    category: "carrier",
   },
   {
     name: "Supply R Us",
     location: "Guelph, ON",
-    desc: "BLAH BLAH BLAH BLAH BLAH",
+    desc:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
     img: BusinessImage3,
     price: 60,
     reviews: [
@@ -72,11 +77,13 @@ const businesses = [
     ],
     rating: 2,
     numPartners: 2,
+    category: "manufacturer",
   },
   {
     name: "Entropy",
     location: "Kitchener, ON",
-    desc: "YOYOYOYOYOYOYOYOYOOYOYOYOYOYOYOYOYOYOYO",
+    desc:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
     img: BusinessImage4,
     price: 10,
     reviews: [
@@ -95,6 +102,7 @@ const businesses = [
     ],
     rating: 4,
     numPartners: 1,
+    category: "warehouse",
   },
 ];
 
