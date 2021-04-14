@@ -7,6 +7,7 @@ import {
   MenuItem,
   TextField,
   withStyles,
+  Popover,
   IconButton,
   Snackbar,
   ClickAwayListener,
@@ -18,12 +19,15 @@ import BusinessCard from "../components/marketplace/BusinessCard";
 import ViewHeadlineIcon from "@material-ui/icons/ViewHeadline";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import Rating from "@material-ui/lab/Rating";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import Map from "../assets/map.jpg";
 import Message from "../components/marketplace/Message.js";
 import GoogleMapReact from "google-map-react";
 import Navbar from "../components/navbar/Navbar";
 import businesses from "../data/businesses.js";
+import PinDropIcon from "@material-ui/icons/PinDrop";
+import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 
 const styles = () => ({
   optionsBtn: {
@@ -44,18 +48,37 @@ const styles = () => ({
     paddingLeft: 65,
     paddingRight: 65,
   },
+  mapFilter: {
+    background: "#2E666E",
+    color: "white",
+    fontWeight: "bold",
+    height: "40px",
+    width: "45%",
+    borderRadius: "20px",
+    justifyContent: "center",
+    verticalAlign: "",
+  },
 });
 
 const Marketplace = (props) => {
   const { classes, history, signedIn } = props;
+  console.log(signedIn);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [sort, setSort] = useState(null);
   const [msgPanel, setMsgPanel] = useState(false);
   const [partner, setPartner] = useState(null);
   const [view, setView] = useState("card");
+  const [prevView, setPrevView] = useState("");
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [displayBus, setDisplayBus] = useState(businesses);
+  const [busCategory, setBusCategory] = useState("");
+  const [service, setService] = useState("");
+  const [destination, setDestination] = useState("");
+  const [commodity, setCommodity] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [lat, setLat] = useState(43.65107);
+  const [lng, setLng] = useState(-79.347015);
 
   const handleSortClick = (e) => {
     setAnchorEl(e.target);
@@ -97,6 +120,7 @@ const Marketplace = (props) => {
   };
 
   const handleCardClick = (partner) => {
+    setPrevView(view);
     setView("business");
     setPartner(partner);
   };
@@ -106,7 +130,28 @@ const Marketplace = (props) => {
     history.push("/marketplace");
   };
 
+  const handleMapFilter = () => {
+    if (destination === "north america") {
+      setLat(54.525963);
+      setLng(-105.255119);
+    } else if (destination === "asia") {
+      setLat(34.047863);
+      setLng(100.619652);
+    } else {
+      setLat(43.65107);
+      setLng(-79.347015);
+    }
+  };
+  const clearFilters = () => {
+    setBusCategory("");
+    setService("");
+    setDestination("");
+    setCommodity("");
+    setZipCode("");
+  };
+
   const handleSearch = (input) => {
+    setView("card");
     let temp = businesses;
     if (input.search) {
       temp = temp.filter(
@@ -226,7 +271,57 @@ const Marketplace = (props) => {
     </Grid>
   );
 
-  const AnyReactComponent = ({ text }) => <div>{text}</div>;
+  const AnyReactComponent = ({ business }) => {
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    return (
+      <>
+        <IconButton
+          style={{ background: "transparent" }}
+          disableRipple
+          onClick={(event) => setAnchorEl(event.currentTarget)}
+        >
+          <PinDropIcon style={{ fontSize: 50, color: "darkred" }} />
+        </IconButton>
+        <Popover
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "left",
+          }}
+          transformOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          open={Boolean(anchorEl)}
+          onClose={() => setAnchorEl(null)}
+          style={{ width: "70%" }}
+        >
+          <div style={{ padding: 10 }}>
+            <h3>{business.name}</h3>
+            <div style={{ display: "flex" }}>
+              <Rating value={business.rating} disabled readOnly size="small" />
+              <p style={{ fontSize: "12px", marginTop: 0, marginLeft: 10 }}>
+                {business.location}
+              </p>
+            </div>
+            <p>{business.desc}</p>
+            <Button
+              style={{
+                background: "transparent",
+                textTransform: "none",
+              }}
+              onClick={() => handleCardClick(business)}
+              disableRipple
+              endIcon={<KeyboardArrowRightIcon />}
+            >
+              Read More
+            </Button>
+          </div>
+        </Popover>
+      </>
+    );
+  };
 
   return (
     <>
@@ -244,54 +339,101 @@ const Marketplace = (props) => {
                   fullWidth
                   className={classes.field}
                   label="Commodity Type"
+                  onChange={(e) => setCommodity(e.target.value)}
+                  value={commodity}
                 />
                 <TextField
                   className={classes.field}
                   fullWidth
                   label="Business Category"
                   select
+                  onChange={(e) => setBusCategory(e.target.value)}
+                  value={busCategory}
                 >
-                  <MenuItem>A</MenuItem>
-                  <MenuItem>B</MenuItem>
-                  <MenuItem>Logistics</MenuItem>
+                  <MenuItem value="">-</MenuItem>
+                  <MenuItem value="supply chain">Supply Chain</MenuItem>
+                  <MenuItem value="logistics">Logistics</MenuItem>
                 </TextField>
                 <TextField
                   fullWidth
                   className={classes.field}
                   label="Location: Zip Code"
+                  onChange={(e) => setZipCode(e.target.value)}
+                  value={zipCode}
                 />
                 <TextField
                   className={classes.field}
                   fullWidth
                   label="Service"
                   select
+                  onChange={(e) => setService(e.target.value)}
+                  value={service}
                 >
-                  <MenuItem>A</MenuItem>
-                  <MenuItem>B</MenuItem>
-                  <MenuItem>Warehouse</MenuItem>
+                  <MenuItem value="">-</MenuItem>
+                  <MenuItem value="carrier">Carrier</MenuItem>
+                  <MenuItem value="shipper">Shipper</MenuItem>
+                  <MenuItem value="manufacturer">Manufacturer</MenuItem>
+                  <MenuItem value="warehouse">Warehouse</MenuItem>
                 </TextField>
                 <TextField
                   className={classes.field}
                   fullWidth
                   label="Destination"
                   select
+                  onChange={(e) => setDestination(e.target.value)}
+                  value={destination}
                 >
-                  <MenuItem>North America</MenuItem>
-                  <MenuItem>Asia</MenuItem>
-                  <MenuItem>International</MenuItem>
+                  <MenuItem value="">-</MenuItem>
+                  <MenuItem value="north america">North America</MenuItem>
+                  <MenuItem value="asia">Asia</MenuItem>
+                  <MenuItem value="international">International</MenuItem>
                 </TextField>
+                <br />
+                <br />
+                <div
+                  style={{ display: "flex", justifyContent: "space-around" }}
+                >
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    className={classes.mapFilter}
+                    onClick={handleMapFilter}
+                  >
+                    Search
+                  </Button>
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    className={classes.mapFilter}
+                    onClick={clearFilters}
+                  >
+                    Clear
+                  </Button>
+                </div>
               </Grid>
               <Grid item xs={10}>
                 {/*<img src={Map} alt="Map" />*/}
                 <div style={{ height: "100vh", width: "100%" }}>
-                  <GoogleMapReact
-                    defaultCenter={{ lat: 59.95, lng: 30.33 }}
-                    defaultZoom={11}
-                  >
+                  <GoogleMapReact defaultCenter={{ lat, lng }} defaultZoom={9}>
                     <AnyReactComponent
-                      lat={59.955413}
-                      lng={30.337844}
-                      text="My Marker"
+                      lat={43.65107}
+                      lng={-79.347015}
+                      business={businesses[0]}
+                    />
+                    <AnyReactComponent
+                      lat={43.589}
+                      lng={-79.6441}
+                      business={businesses[1]}
+                    />
+                    <AnyReactComponent
+                      lat={43.5448}
+                      lng={-80.2482}
+                      business={businesses[2]}
+                    />
+                    <AnyReactComponent
+                      lat={43.4516}
+                      lng={-80.4925}
+                      business={businesses[3]}
                     />
                   </GoogleMapReact>
                 </div>
@@ -306,7 +448,7 @@ const Marketplace = (props) => {
         ) : (
           <Business
             partner={partner}
-            handleGoBack={() => handleSetView("card")}
+            handleGoBack={() => handleSetView(prevView)}
             {...props}
           />
         )}
