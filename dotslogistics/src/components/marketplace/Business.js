@@ -17,7 +17,6 @@ import BusinessCard from "./BusinessCard";
 import ViewHeadlineIcon from "@material-ui/icons/ViewHeadline";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import Rating from "@material-ui/lab/Rating";
-import BusinessImage from "../../assets/turtwig.png";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import OurProcess from "../../assets/ourProcess.jpg";
 import LocalAtmIcon from "@material-ui/icons/LocalAtm";
@@ -139,7 +138,7 @@ class Business extends Component {
               </div>
               <img
                 className={classes.businessImage}
-                src={BusinessImage}
+                src={img}
                 alt="Turtwig"
                 width="100%"
                 height="500"

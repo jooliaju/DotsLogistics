@@ -75,25 +75,12 @@ const styles = () => ({
 
 const RequestQuote = (props) => {
   const { classes, match, history } = props;
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [businessName, setBusinessName] = useState(match.params.bus);
   const [quoteSent, setQuoteSent] = useState(false);
+  const [duration, setDuration] = useState("");
 
-  const handleChange = (field) => (e) => {
-    switch (field) {
-      case 1:
-        setFirstName(e.target.value);
-        break;
-      case 2:
-        setLastName(e.target.value);
-        break;
-      case 3:
-        setBusinessName(e.target.value);
-        break;
-      default:
-        return e.target.value;
-    }
+  const handleDuration = (e) => {
+    setDuration(e.target.value);
   };
 
   const handleSubmit = () => {
@@ -117,42 +104,42 @@ const RequestQuote = (props) => {
           <Grid className={classes.form} container spacing={4} justify="center">
             <Grid item xs={5}>
               <TextField
+                required
                 className={classes.field}
                 fullWidth
                 variant="outlined"
                 label="First Name"
-                onChange={() => handleChange(1)}
               />
               <TextField
                 className={classes.field}
                 fullWidth
                 variant="outlined"
                 label="Business Name"
-                onChange={() => handleChange(3)}
                 value={businessName}
               />
               <TextField
+                required
                 className={classes.field}
                 fullWidth
                 variant="outlined"
                 label="Phone Number"
-                onChange={() => handleChange(5)}
               />
               <TextField
+                required
                 className={classes.field}
                 fullWidth
                 variant="outlined"
                 label="Commodity Type"
-                onChange={() => handleChange(7)}
               />
               <TextField
+                required
                 className={classes.field}
                 fullWidth
                 variant="outlined"
                 label="Pick Up Address"
-                onChange={() => handleChange(9)}
               />
               <TextField
+                required
                 className={classes.field}
                 fullWidth
                 variant="outlined"
@@ -162,7 +149,6 @@ const RequestQuote = (props) => {
                     <InputAdornment position="start">$</InputAdornment>
                   ),
                 }}
-                onChange={() => handleChange(11)}
               />
               <TextField
                 className={classes.field}
@@ -170,27 +156,27 @@ const RequestQuote = (props) => {
                 variant="outlined"
                 label="Contact Duration"
                 select
-                onChange={() => handleChange(13)}
+                onChange={handleDuration}
+                value={duration}
               >
-                <MenuItem>1 year</MenuItem>
-                <MenuItem>1 month</MenuItem>
-                <MenuItem>6 months</MenuItem>
+                <MenuItem value="oneYear">1 year</MenuItem>
+                <MenuItem value="oneMonth">1 month</MenuItem>
+                <MenuItem value="sixMonths">6 months</MenuItem>
               </TextField>
             </Grid>
             <Grid item xs={5}>
               <TextField
+                required
                 className={classes.field}
                 fullWidth
                 variant="outlined"
                 label="Last Name"
-                onChange={() => handleChange(2)}
               />
               <TextField
                 className={classes.field}
                 fullWidth
                 variant="outlined"
                 label="Business Location"
-                onChange={() => handleChange(4)}
               />
               <TextField
                 className={classes.field}
@@ -199,19 +185,21 @@ const RequestQuote = (props) => {
                 label="Title"
               />
               <TextField
+                required
                 className={classes.field}
                 fullWidth
                 variant="outlined"
                 label="Zip Code"
               />
               <TextField
+                required
                 className={classes.field}
                 fullWidth
                 variant="outlined"
                 label="Delivery Address"
-                onChange={() => handleChange(10)}
               />
               <TextField
+                required
                 className={classes.field}
                 fullWidth
                 variant="outlined"
@@ -221,7 +209,6 @@ const RequestQuote = (props) => {
                     <InputAdornment position="end">Kg</InputAdornment>
                   ),
                 }}
-                onChange={() => handleChange(12)}
               />
             </Grid>
             <div className={classes.inputBox}>

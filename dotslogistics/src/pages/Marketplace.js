@@ -55,6 +55,7 @@ const Marketplace = (props) => {
   const [partner, setPartner] = useState(null);
   const [view, setView] = useState("card");
   const [showSnackbar, setShowSnackbar] = useState(false);
+  const [displayBus, setDisplayBus] = useState(businesses);
 
   const handleSortClick = (e) => {
     setAnchorEl(e.target);
@@ -105,15 +106,31 @@ const Marketplace = (props) => {
     history.push("/marketplace");
   };
 
+  const handleSearch = (input) => {
+    let temp = businesses;
+    if (input.search) {
+      temp = temp.filter(
+        ({ name }) => name.includes(input.search) || input.search.includes(name)
+      );
+    }
+    if (input.category) {
+      temp = temp.filter(({ category }) => category === input.category);
+    }
+    if (input.location) {
+      temp = temp.filter(({ location }) => location === input.location);
+    }
+    setDisplayBus(temp);
+  };
+
   let sortBusinesses;
   if (sort === "Rating") {
-    sortBusinesses = businesses.sort((a, b) => b.rating - a.rating);
+    sortBusinesses = displayBus.sort((a, b) => b.rating - a.rating);
   } else if (sort === "Price Range Low to High") {
-    sortBusinesses = businesses.sort((a, b) => a.price - b.price);
+    sortBusinesses = displayBus.sort((a, b) => a.price - b.price);
   } else if (sort === "Price Range High to Low") {
-    sortBusinesses = businesses.sort((a, b) => b.price - a.price);
+    sortBusinesses = displayBus.sort((a, b) => b.price - a.price);
   } else {
-    sortBusinesses = [...businesses];
+    sortBusinesses = [...displayBus];
   }
   const businessCards = sortBusinesses.map((business) => {
     return (
@@ -129,15 +146,18 @@ const Marketplace = (props) => {
   const options = (
     <Grid container justify="flex-end">
       <Grid item xs={2}>
-        <Button
-          className={classes.optionsBtn}
-          style={{
-            backgroundColor: "transparent",
-          }}
-          disableRipple
-        >
-          Display all items
-        </Button>
+        {view !== "map" && (
+          <Button
+            className={classes.optionsBtn}
+            style={{
+              backgroundColor: "transparent",
+            }}
+            disableRipple
+            onClick={() => setDisplayBus(businesses)}
+          >
+            Display all items
+          </Button>
+        )}
       </Grid>
       <Grid item xs={1}>
         <div className={classes.view}>
@@ -163,41 +183,45 @@ const Marketplace = (props) => {
         </div>
       </Grid>
       <Grid item xs={3} style={{ textAlign: "left" }}>
-        <Button
-          className={classes.optionsBtn}
-          style={{
-            backgroundColor: "transparent",
-          }}
-          onClick={handleSortClick}
-          disableRipple
-          endIcon={anchorEl ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-        >
-          Sort By: {sort ? sort : "-"}
-        </Button>
-        <Menu
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleSortClose}
-          getContentAnchorEl={null}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "center",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "center",
-          }}
-        >
-          <MenuItem onClick={handleSortNone}>-</MenuItem>
-          <MenuItem onClick={handleSortRating}>Rating</MenuItem>
-          <MenuItem onClick={handleSortPriceL}>
-            Price Range Low to High
-          </MenuItem>
-          <MenuItem onClick={handleSortPriceH}>
-            Price Range High to Low
-          </MenuItem>
-        </Menu>
+        {view !== "map" && (
+          <>
+            <Button
+              className={classes.optionsBtn}
+              style={{
+                backgroundColor: "transparent",
+              }}
+              onClick={handleSortClick}
+              disableRipple
+              endIcon={anchorEl ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+            >
+              Sort By: {sort ? sort : "-"}
+            </Button>
+            <Menu
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleSortClose}
+              getContentAnchorEl={null}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "center",
+              }}
+            >
+              <MenuItem onClick={handleSortNone}>-</MenuItem>
+              <MenuItem onClick={handleSortRating}>Rating</MenuItem>
+              <MenuItem onClick={handleSortPriceL}>
+                Price Range Low to High
+              </MenuItem>
+              <MenuItem onClick={handleSortPriceH}>
+                Price Range High to Low
+              </MenuItem>
+            </Menu>
+          </>
+        )}
       </Grid>
     </Grid>
   );
@@ -207,7 +231,7 @@ const Marketplace = (props) => {
   return (
     <>
       <Navbar />
-      <Search />
+      <Search handleSearch={handleSearch} />
       <Grid style={{ backgroundColor: "#F0F8FF" }} container justify="center">
         {view === "map" ? (
           <>

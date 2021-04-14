@@ -35,8 +35,30 @@ const styles = () => ({
 });
 
 class Message extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      number: "",
+      message: "",
+    };
+  }
+
   handleSend = () => {
-    this.props.msgSent();
+    if (this.state.email && this.state.number && this.state.message)
+      this.props.msgSent();
+  };
+
+  handleChangeEmail = (e) => {
+    this.setState({ ...this.state, email: e.target.value });
+  };
+
+  handleChangeNumber = (e) => {
+    this.setState({ ...this.state, number: e.target.value });
+  };
+
+  handleChangeMessage = (e) => {
+    this.setState({ ...this.state, message: e.target.value });
   };
 
   render() {
@@ -51,14 +73,28 @@ class Message extends Component {
             label="Business Partner"
             value={partner}
           />
-          <TextField fullWidth className={classes.field} label="Email" />
-          <TextField fullWidth className={classes.field} label="Phone Number" />
+          <TextField
+            required
+            fullWidth
+            className={classes.field}
+            label="Email"
+            onChange={this.handleChangeEmail}
+          />
+          <TextField
+            required
+            fullWidth
+            className={classes.field}
+            label="Phone Number"
+            onChange={this.handleChangeNumber}
+          />
           <TextField
             fullWidth
+            required
             className={classes.field}
             label="Message"
             multiline
             rows={6}
+            onChange={this.handleChangeMessage}
           />
           <div className={classes.sendBtn}>
             <Button
