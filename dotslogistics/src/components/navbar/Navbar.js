@@ -7,11 +7,14 @@ import Button from "@material-ui/core/Button";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Grow from "@material-ui/core/Grow";
 import Paper from "@material-ui/core/Paper";
+import Popover from "@material-ui/core/Popover";
 import Popper from "@material-ui/core/Popper";
+import Avatar from "@material-ui/core/Avatar";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import { makeStyles } from "@material-ui/core/styles";
 import Logo from "../../pictures/dotsLogo.png";
+import ProfilePic from "../../pictures/drone.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,11 +25,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Navbar() {
-
+function Navbar(props) {
+  const { signedIn, logOut } = props;
   const history = useHistory();
-  
-
 
   const [click, setClick] = useState(false);
   const [dropdown, setDropdown] = useState(false);
@@ -54,6 +55,7 @@ function Navbar() {
   const [open, setOpen] = React.useState(false);
   const [hoverResources, setHoverResources] = React.useState(false);
   const anchorRef = React.useRef(null);
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -124,86 +126,173 @@ function Navbar() {
               {hoverResources ? "Coming Soon" : "Resources"}
             </Link>
           </li>
-          
-
-
-          <Button
-          
-          ref={anchorRef}
-          aria-controls={open ? 'menu-list-grow' : undefined}
-          aria-haspopup="true"
-          onClick={handleToggle}
-          style = {{textTransform: 'none', color: 'white', fontSize : '18px'}}
-          
-        >
-          <div className = "myaccount" >
-            My Account
-          </div>
-          
-        </Button>
-        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal className = "popper" >
-          {({ TransitionProps, placement }) => (
-            <Grow
-              {...TransitionProps}
-              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-            >
-              <Paper>
-                <ClickAwayListener>
-                  <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown} >
-                    <MenuItem >
-                          <Link to= '/profile' style ={{textDecoration: 'none', color: "black"}}>
-                             Profile
-                          </Link>
-                      </MenuItem>
-                    <MenuItem>
-                    
-                          <Link to= '/dash' style ={{textDecoration: 'none', color: "black"}}>
-                             Dashboard
-                          </Link>
-                        
-                    </MenuItem>
-                    <MenuItem ><Link to= '/settings' style ={{textDecoration: 'none', color: "black"}}>
-                             Account Settings
-                          </Link></MenuItem>
-                    <MenuItem ><Link to= '/logout' style ={{textDecoration: 'none', color: "black"}}>
-                             Log Out
-                          </Link></MenuItem>
-
-                  </MenuList>
-                </ClickAwayListener>
-              </Paper>
-            </Grow>
+          {signedIn ? (
+            <>
+              <Button
+                ref={anchorRef}
+                aria-controls={open ? "menu-list-grow" : undefined}
+                aria-haspopup="true"
+                onClick={handleToggle}
+                style={{
+                  textTransform: "none",
+                  color: "white",
+                  fontSize: "18px",
+                }}
+              >
+                My Account
+                <Avatar style={{ marginLeft: 15 }} src={ProfilePic} />
+              </Button>
+              <Popper
+                open={open}
+                anchorEl={anchorRef.current}
+                role={undefined}
+                transition
+                disablePortal
+                className="popper"
+              >
+                {({ TransitionProps, placement }) => (
+                  <Grow
+                    {...TransitionProps}
+                    style={{
+                      transformOrigin:
+                        placement === "bottom" ? "center top" : "center bottom",
+                    }}
+                  >
+                    <Paper>
+                      <ClickAwayListener>
+                        <MenuList
+                          autoFocusItem={open}
+                          id="menu-list-grow"
+                          onKeyDown={handleListKeyDown}
+                        >
+                          <MenuItem>
+                            <Link
+                              to="/profile"
+                              style={{ textDecoration: "none", color: "black" }}
+                            >
+                              Profile
+                            </Link>
+                          </MenuItem>
+                          <MenuItem>
+                            <Link
+                              to="/dash"
+                              style={{ textDecoration: "none", color: "black" }}
+                            >
+                              Dashboard
+                            </Link>
+                          </MenuItem>
+                          <MenuItem>
+                            <Link
+                              to="/settings"
+                              style={{ textDecoration: "none", color: "black" }}
+                            >
+                              Account Settings
+                            </Link>
+                          </MenuItem>
+                          <MenuItem onClick={() => logOut()}>
+                            <Link
+                              to="/"
+                              style={{ textDecoration: "none", color: "black" }}
+                            >
+                              Log Out
+                            </Link>
+                          </MenuItem>
+                        </MenuList>
+                      </ClickAwayListener>
+                    </Paper>
+                  </Grow>
+                )}
+              </Popper>
+            </>
+          ) : (
+            <>
+              <li className="nav-item">
+                <Button
+                  onClick={() => history.push("/signin")}
+                  onMouseEnter={(event) => setAnchorEl(event.currentTarget)}
+                  onMouseLeave={() => setAnchorEl(null)}
+                  variant="contained"
+                  style={{
+                    background: "#2E666E",
+                    color: "white",
+                    fontWeight: "bold",
+                    height: "40px",
+                    width: "110px",
+                    borderRadius: "20px",
+                    justifyContent: "center",
+                    verticalAlign: "",
+                  }}
+                >
+                  Sign In
+                </Button>
+              </li>
+              <Popover
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorEl)}
+                anchorEl={anchorEl}
+              >
+                <div style={{ textAlign: "center", width: "100%" }}>
+                  <Button
+                    className="btnFilled"
+                    variant="contained"
+                    onClick={() => history.push("/dash")}
+                  >
+                    Login
+                  </Button>
+                  <Button
+                    className="btn"
+                    variant="outlined"
+                    onClick={() => history.push("/signup")}
+                  >
+                    Sign Up
+                  </Button>
+                </div>
+              </Popover>
+            </>
           )}
-        </Popper>
 
-{/*         
-        <div style= {{height: '100%', paddingTop: '20px', paddingBottom: '20px', width: '100px'}}>
-
-
-        
-        <li>
-        <Button
-          onClick = {()=>history.push('/signup')}
-          variant="contained" style = {{background: "#2E666E", color: 'white', fontWeight: 'bold', height: '30px', width: '110px', borderRadius: '20px', justifyContent: 'center', verticalAlign: ''}}
-        >
-          <div className = "myaccount" >
-            Sign Up
-          </div>
-          
-        </Button>
-            <Link
-              to="/signin"
-              className="nav-links"
-              onClick={closeMobileMenu}
-              style ={{fontSize: '16px'}}
-            >
-              Sign In
-            </Link>
-          </li>
-        </div> */}
-
-
-          
+          {/*<div
+            style={{
+              height: "100%",
+              paddingTop: "20px",
+              paddingBottom: "20px",
+              width: "100px",
+            }}
+          >
+            <li>
+              <Button
+                onClick={() => history.push("/signup")}
+                variant="contained"
+                style={{
+                  background: "#2E666E",
+                  color: "white",
+                  fontWeight: "bold",
+                  height: "30px",
+                  width: "110px",
+                  borderRadius: "20px",
+                  justifyContent: "center",
+                  verticalAlign: "",
+                }}
+              >
+                <div className="myaccount">Sign Up</div>
+              </Button>
+              <Link
+                to="/signin"
+                className="nav-links"
+                onClick={closeMobileMenu}
+                style={{ fontSize: "16px" }}
+              >
+                Sign In
+              </Link>
+            </li>
+          </div>*/}
         </ul>
       </nav>
     </>

@@ -41,10 +41,12 @@ class Message extends Component {
       email: "",
       number: "",
       message: "",
+      clickSend: false,
     };
   }
 
   handleSend = () => {
+    this.setState({ ...this.state, clickSend: true });
     if (this.state.email && this.state.number && this.state.message)
       this.props.msgSent();
   };
@@ -79,6 +81,9 @@ class Message extends Component {
             className={classes.field}
             label="Email"
             onChange={this.handleChangeEmail}
+            helperText={
+              this.state.clickSend && !this.state.email ? "Required field" : ""
+            }
           />
           <TextField
             required
@@ -86,6 +91,9 @@ class Message extends Component {
             className={classes.field}
             label="Phone Number"
             onChange={this.handleChangeNumber}
+            helperText={
+              this.state.clickSend && !this.state.number ? "Required field" : ""
+            }
           />
           <TextField
             fullWidth
@@ -95,6 +103,11 @@ class Message extends Component {
             multiline
             rows={6}
             onChange={this.handleChangeMessage}
+            helperText={
+              this.state.clickSend && !this.state.message
+                ? "Required field"
+                : ""
+            }
           />
           <div className={classes.sendBtn}>
             <Button

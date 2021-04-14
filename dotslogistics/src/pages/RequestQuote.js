@@ -74,7 +74,7 @@ const styles = () => ({
 });
 
 const RequestQuote = (props) => {
-  const { classes, match, history } = props;
+  const { classes, match, history, signedIn } = props;
   const [businessName, setBusinessName] = useState(match.params.bus);
   const [quoteSent, setQuoteSent] = useState(false);
   const [duration, setDuration] = useState("");
@@ -95,7 +95,7 @@ const RequestQuote = (props) => {
 
   return (
     <>
-      <Navbar />
+      <Navbar signedIn={signedIn} logOut={props.logOut} />
       <div className={classes.banner}>
         <h1 style={{ height: "100%" }}>Request for Quote</h1>
       </div>

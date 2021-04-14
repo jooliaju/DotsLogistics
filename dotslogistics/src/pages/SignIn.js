@@ -8,6 +8,7 @@ import {
   Paper,
   TextField,
   Checkbox,
+  Snackbar,
   InputAdornment,
   IconButton,
 } from "@material-ui/core";
@@ -88,11 +89,21 @@ const styles = () => ({
     },
     marginRight: 10,
   },
+  optionsBtn: {
+    textTransform: "none",
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  },
 });
 
 const SignIn = (props) => {
-  const { classes, history } = props;
+  const { classes, history, signedIn } = props;
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [submit, setSubmit] = useState(false);
+  const [showSnackbar, setShowSnackbar] = useState(false);
 
   const handleShowPassword = () => {
     setShowPassword(true);
@@ -101,6 +112,14 @@ const SignIn = (props) => {
   const handleHidePassword = () => {
     if (showPassword) {
       setShowPassword(false);
+    }
+  };
+
+  const handleSubmit = () => {
+    setSubmit(true);
+    if (email && password) {
+      signedIn();
+      history.push("/dash");
     }
   };
 
@@ -118,17 +137,25 @@ const SignIn = (props) => {
           <Paper className={classes.paper} elevation={10}>
             <h3 className={classes.subHeader}>Sign In</h3>
             <TextField
+              required
               className={classes.field}
               fullWidth
               variant="filled"
               label="Email Address"
+              onChange={(e) => setEmail(e.target.value)}
+              helperText={
+                (submit || showSnackbar) && !email ? "Required field" : ""
+              }
             />
             <TextField
+              required
               className={classes.field}
               fullWidth
               variant="filled"
               label="Password"
               type={showPassword ? "text" : "password"}
+              onChange={(e) => setPassword(e.target.value)}
+              helperText={submit && !password ? "Required field" : ""}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -158,16 +185,29 @@ const SignIn = (props) => {
                 <Checkbox style={{ color: "#2A8D88" }} />
                 <p style={{ marginTop: 15 }}>Remember Me?</p>
               </div>
-              <a href="/">
-                <p>Forgot Password?</p>
-              </a>
+              <Button
+                className={classes.optionsBtn}
+                style={{
+                  backgroundColor: "transparent",
+                }}
+                disableRipple
+                onClick={() => setShowSnackbar(true)}
+              >
+                Forgot Password?
+              </Button>
+              <Snackbar
+                open={showSnackbar && email}
+                onClose={() => setShowSnackbar(false)}
+                message="Check your email to reset your password!"
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              />
             </div>
             <br />
             <div className={classes.btnWrap}>
               <Button
                 className={classes.btnFilled}
                 variant="contained"
-                onClick={() => history.push("/dash")}
+                onClick={handleSubmit}
               >
                 Login
               </Button>

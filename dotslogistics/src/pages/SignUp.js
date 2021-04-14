@@ -116,7 +116,7 @@ const SignUp = (props) => {
     <>
       <Navbar />
       <div className={classes.banner}>
-        <h1 style={{ height: "100%" }}>Sign Up</h1>
+        <h1 style={{ height: "100%" }}>Create an Account</h1>
       </div>
       <Grid style={{ backgroundColor: "#F0F8FF" }} container justify="center">
         <Grid item xs={5}>

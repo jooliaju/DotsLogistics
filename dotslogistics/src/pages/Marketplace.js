@@ -47,7 +47,7 @@ const styles = () => ({
 });
 
 const Marketplace = (props) => {
-  const { classes, history } = props;
+  const { classes, history, signedIn } = props;
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [sort, setSort] = useState(null);
@@ -230,7 +230,7 @@ const Marketplace = (props) => {
 
   return (
     <>
-      <Navbar />
+      <Navbar signedIn={signedIn} logOut={props.logOut} />
       <Search handleSearch={handleSearch} />
       <Grid style={{ backgroundColor: "#F0F8FF" }} container justify="center">
         {view === "map" ? (
