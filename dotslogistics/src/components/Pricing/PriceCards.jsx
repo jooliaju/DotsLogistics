@@ -11,21 +11,16 @@ import "./PriceCards.css";
 import Price1 from "../../assets/price1.png";
 import Price2 from "../../assets/price2.png";
 import Price3 from "../../assets/price3.png";
+import Price4 from "../../assets/price4.png";
+import Price5 from "../../assets/price5.png";
 
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
   },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
-  },
+
   title: {
     fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
   },
 });
 
@@ -54,12 +49,10 @@ function PriceCards() {
                 }}
               >
                 <CardContent>
-                  <img src={Price1} style={{ width: 150 }} />
+                  <img src={Price1} style={{ width: 160 }} />
                   <h2>BRONZE</h2>
 
-                  <h3>$0/mo</h3>
-
-                  <p>
+                  <p style={{ paddingBottom: 50, paddingTop: 60 }}>
                     Access to marketplace to find and connect with potential
                     partners, request quotes, we take 3% commission on all
                     transactions and 10% commission from discounts by promotions
@@ -77,7 +70,6 @@ function PriceCards() {
             </Grid>
             <Grid item xs={3}>
               <Card
-                className={classes.root}
                 style={{
                   alignContent: "center",
                   justifyContent: "center",
@@ -90,11 +82,11 @@ function PriceCards() {
                   <img src={Price2} style={{ width: 180 }} />
 
                   <h2>SILVER</h2>
-                  <h3>$57.99/mo</h3>
                   <p>
                     Bronze + access to company analytics, market insights,
                     business partner recommendations, route optimization
                   </p>
+                  <img src={Price4} style={{ width: 280, padding: 16 }} />
 
                   <Button
                     size="large"
@@ -120,11 +112,12 @@ function PriceCards() {
                   <img src={Price3} style={{ width: 180 }} />
 
                   <h2>GOLD</h2>
-                  <h3>$74.99/hr</h3>
                   <p>
                     Bronze + our consulting service offered by industry
                     professionals
                   </p>
+
+                  <img src={Price5} style={{ width: 280, padding: 20 }} />
 
                   <Button
                     size="large"
