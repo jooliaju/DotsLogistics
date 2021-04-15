@@ -10,8 +10,10 @@
 
 .caption {
   position: absolute;
-  top: 50%;
+  top: 49%;
   left: 50%;
+  letter-spacing: 3px;
+  word-spacing: 10px;
   transform: translate(-50%, -50%);
   font-size: 70px;
   width: 1000px;

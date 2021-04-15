@@ -130,6 +130,7 @@ function PriceCards() {
             </Grid>
           </Grid>
         </div>
+        s{" "}
       </Grid>
     </div>
   );
