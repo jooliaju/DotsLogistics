@@ -107,6 +107,11 @@ function Navbar(props) {
             </Link>
           </li>
           <li className="nav-item">
+            <Link to="/pricing" className="nav-links" onClick={closeMobileMenu}>
+              Pricing
+            </Link>
+          </li>
+          <li className="nav-item">
             <Link
               to="/marketplace"
               className="nav-links"

@@ -2,6 +2,7 @@ import React from "react";
 
 import Navbar from "../components/navbar/Navbar";
 import PriceCards from "../components/Pricing/PriceCards";
+import Footer from "../components/footer/Footer";
 
 export default function Pricing(props) {
   return (
